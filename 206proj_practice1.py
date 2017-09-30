@@ -1,3 +1,5 @@
+import os
+import filecmp
 import csv
 import re
 import datetime
@@ -17,7 +19,7 @@ with open('P1DataA.csv', 'r') as csv_input_file:
 
 #print(l_of_d)
 
-l_of_d_sorted = sorted(l_of_d, key=lambda k: k['First'])
+l_of_d_sorted = sorted(l_of_d, key=lambda k: k['Last'])
 top_dict = l_of_d_sorted[0]
 top_dict_first_name = top_dict['First']
 top_dict_last_name = top_dict['Last']
@@ -63,9 +65,13 @@ for dob in list_of_dob:
     age = today - date_of_birth
     age_in_years = age.total_seconds() / (365.25*24*60*60)
     list_of_ages.append(age_in_years)
-print(list_of_ages)
+age_sum = 0
+for age in list_of_ages:
+    age_sum += age
+age_avg = age_sum/len(list_of_ages)
+print (round(age_avg))
 
-unparsed_date = '6/30/1997'
+unparsed_date = '4/28/1993'
 parsed_date_month = int(re.findall('(.*)/.*/.*', unparsed_date)[0])
 parsed_date_day = int(re.findall('/(.*)/', unparsed_date)[0])
 parsed_date_year_full = int(re.findall('.*/.*/(.*)', unparsed_date)[0])
@@ -76,6 +82,21 @@ date_of_birth = datetime.date(parsed_date_year_full, parsed_date_month, parsed_d
 age = today - date_of_birth
 age_in_years = age.total_seconds() / (365.25*24*60*60)
 print(age_in_years)
+
+with open('practice_out.csv', 'w') as file_out:
+    csv_output = csv.writer(file_out)
+    i = 0
+    while i < len(l_of_d_sorted):
+        for k, v in l_of_d_sorted[i].items():
+            if k == 'First':
+                first_name = v
+            elif k == 'Last':
+                last_name = v
+            elif k == 'Email':
+                email = v
+                i += 1
+        csv_output.writerow([first_name, last_name, email])
+        # print(first_name + "," + last_name + "," + email)
 
 
 
