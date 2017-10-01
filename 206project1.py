@@ -1,3 +1,7 @@
+# Joshua Walker
+# Project 1
+# github username: joshwalk
+
 import os
 import filecmp
 import csv
@@ -122,8 +126,6 @@ def mySortPrint(a,col,fileName):
 
 	# Your code here:
 	l_of_d_sorted_csv = sorted(a, key=lambda k: k[col])
-	# with open(fileName, 'w') as file_out:
-	    # csv_output = csv.writer(file_out)
 	output_file = open(fileName, 'w')
 	i = 0
 	while i < len(l_of_d_sorted_csv):
@@ -135,7 +137,6 @@ def mySortPrint(a,col,fileName):
 			elif k == 'Email':
 				email = v
 				i += 1
-	        # csv_output.writerow([first_name, last_name, email])
 		output_file.write(first_name + "," + last_name + "," + email + "\n")
 
 ################################################################
